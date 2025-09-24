@@ -341,3 +341,135 @@ Reusable Partials: Navbar and footer partials integrated for consistent layout a
 Accessibility & Responsiveness: Layout tested to ensure it adapts to different screen sizes, following a mobile-first approach. 
 
 
+
+---
+
+# Running the SkillLink App with Docker
+
+This guide explains how to build and run the SkillLink project inside Docker.
+No need to install Node.js — just Docker.
+
+---
+
+##  Step 1. Clone the Repository
+
+First, download the project to your computer:
+
+```bash
+git clone https://github.com/IsurangiGuniyangodage/Skill_Sharing_app
+cd <your folder>
+```
+
+This folder contains the project source code and a `Dockerfile` for containerisation.
+
+---
+
+## Step 2. Build the Docker Image
+
+Build the app image with:
+
+```bash
+docker build -t skilllink-app .
+```
+
+Explanation:
+
+* `docker build` → tells Docker to build an image.
+* `-t skilllink-app` → names the image **skilllink-app**.
+* `.` → uses the current folder (with the `Dockerfile`) as the build context.
+
+When this finishes, you’ll have an image called **skilllink-app**.
+
+Check with:
+
+```bash
+docker images
+```
+
+---
+
+## Step 3. Run the Container
+
+Start a container from the image:
+
+```bash
+docker run -p 3000:3000 skilllink-app
+```
+
+Explanation:
+
+* `-p 3000:3000` → maps **port 3000 in the container** to **port 3000 on your computer**.
+* `skilllink-app` → runs the image you built in step 2.
+
+If successful, you’ll see logs like:
+
+```
+Server running on http://localhost:3000
+```
+
+---
+
+## Step 4. Open the App
+
+In your browser, go to:
+
+👉 [http://localhost:3000](http://localhost:3000)
+
+This loads the SkillLink homepage running inside the container 🎉
+
+---
+
+##  Step 5. Test the API
+
+Check the sample endpoint:
+
+👉 [http://localhost:3000/api/student](http://localhost:3000/api/student)
+
+You should see JSON output, for example:
+
+```json
+{
+  "name": "Isurangi Thilakshana Guniyangodage",
+  "studentId": "s225065034"
+}
+```
+
+This confirms your container is working correctly.
+
+---
+
+## Notes & Tips
+
+* **Change Port**: If port 3000 is already in use, change the first number, e.g.:
+
+  ```bash
+  docker run -p 4000:3000 skilllink-app
+  ```
+
+  Then open [http://localhost:4000](http://localhost:4000).
+
+* **Stop the App**: Press **CTRL + C** in the terminal where the app is running.
+
+* **List Containers**:
+
+  ```bash
+  docker ps
+  ```
+
+* **Stop a Container**:
+
+  ```bash
+  docker stop <container_id>
+  ```
+
+* **Remove All Containers & Images** (cleanup):
+
+  ```bash
+  docker system prune -a
+  ```
+
+---
+
+
+
+
